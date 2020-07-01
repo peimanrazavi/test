@@ -1,0 +1,39 @@
+def packetDescrambler(seq, fragmentData, n):
+    
+    rel=(n//2)+1
+    first=dict()
+    
+    for i in range(len(seq)):
+        if seq[i] in first:
+            first[seq[i]]+=fragmentData[i]
+        else:
+            first[seq[i]]=fragmentData[i]
+        if len(first[seq[i]])>n:
+            return ''
+            
+            
+    k=max(first.keys())
+    mas=''
+    
+    for i in range(k+1):
+        if i not in first:
+            return ''
+        elif len(first[i])>n:
+            return ''
+        elif first[i]=='':
+            return ''
+        else:
+            counter=0
+            for l in first[i]:
+                if first[i].count(l)<rel:
+                    pass
+                else:
+                    mas+=l
+                    counter=1
+                    break
+            if counter==0:
+                return ''
+    if mas[-1]=='#':
+        return mas
+    else:
+        return ''
